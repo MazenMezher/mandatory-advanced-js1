@@ -45,6 +45,14 @@ class UpdatedMessages extends Component {
         })
     }
 
+    x = (e) => {
+        if (this.state.value.length >= 1 && this.state.value.length <= 200){
+            return true
+        } else {
+            alert("Keep input length over 1 and under 201")
+            e.preventDefault()
+        }
+    }
 
     render() {
         const { newMessages } = this.state;
@@ -54,8 +62,8 @@ class UpdatedMessages extends Component {
                 {newMessages.map(data => {
                     return <p key={data.id}>{data.username}: <Linkify>{emojify(data.content)} </Linkify></p>
                 })}
-                <input placeholder="Message" type="text" value={this.state.value} onChange={this.newValue.bind(this)}></input>
-                <button type="submit">Send</button>
+                <input type="text" value={this.state.value} onChange={this.newValue.bind(this)}></input>
+                <button onClick={this.x.bind(this)} type="submit">Send</button>
                 <Link to="/">
                     <button>Return to login</button>
                 </Link>

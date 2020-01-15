@@ -28,7 +28,7 @@ class LogIn extends Component {
                 <h1>Log In</h1>
                 <div><input placeholder="Username" type="text" value={this.state.value} onChange={this.setName.bind(this)}></input></div>
                 <Link onClick={event => {
-                    let valid = /^[a-z/d_-]{1,12}$/i.test(this.state.value);
+                    let valid = /^[a-z/d_-\s]{1,12}$/i.test(this.state.value);
                     if(!valid){
                         event.preventDefault();
                     }
