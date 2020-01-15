@@ -49,7 +49,7 @@ class UpdatedMessages extends Component {
         if (this.state.value.length >= 1 && this.state.value.length <= 200){
             return true
         } else {
-            alert("Keep input length over 1 and under 201")
+            alert("Keep content length over 1 and under 201")
             e.preventDefault()
         }
     }

@@ -29,42 +29,22 @@ class Chat extends Component {
     componentWillUnmount() {
         this.socket.off();
     }
-    //     this.state.messages.map(msg => {
-    //         // let word = msg.content.split(" ");
-    //         return console.log('hej');
-    //         // if (/^https?/ig.test(word)) {
-    //         //         return <a href={word}>{word}</a>
-    //         //     }
-    //         //     return <> {word} </>;
-    //     })
 
-    //     console.log('object');
-    // }
 
 
 
     render() {
         const { username, messages } = this.state;
 
-        // let url = messages.map(msg => {
-        //     let word = msg.content.split(" ");
-        //     if (/^https?/ig.test(word)) {
-        //             return <a href={word}>{word}</a>
-        //         }
-        //         return <> {word} </>;
-        // })
-
+    
         let msg = messages.map(message => {
 
             return <p key={message.id}>{message.username}: <Linkify> {emojify (message.content)} </Linkify></p>;
-            // return <p key={message.id}>{message.username}: {replace_content(message.content)}</p>;
         })
 
         return (
             <div>
-                {/* {x} /}
-                
-                {/ {replace_content()} */}
+
                 {msg}
                 <UpdatedMessages socket={this.socket} username={username}/>
             </div>
@@ -78,47 +58,3 @@ export default Chat
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-/*
-import React, { Component } from 'react'
-import io from "socket.io-client"
-
-
-class Chat extends Component {
-
-
-    render() {
-        let username = this.props.username;
-        const socket = io("http://3.120.96.16:3000")
-
-        return (
-            <div>
-                {socket.on('connect', function(){
-                    socket.emit("message", {
-                    username: username,
-                    content: "Hello World",
-                })
-            })};
-
-            {socket.on('new_message', function(data){
-                console.log(data);
-            })}
-                <p>{username}</p>
-            </div>
-        )
-    }
-}
-
-export default Chat
-
-*/
