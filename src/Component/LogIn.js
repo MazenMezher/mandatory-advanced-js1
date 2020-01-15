@@ -1,6 +1,7 @@
 
 import React, { Component } from 'react'
-import Chat from './Chat'
+
+import { Link } from "react-router-dom"
 
 class LogIn extends Component {
     constructor(props) {
@@ -18,28 +19,16 @@ class LogIn extends Component {
         })
     }
 
-    getUsername = () => {
-        console.log(this.state.username);
-    }
-
-    rensaInput = e => {
-        e.preventDefault();
-        this.setState({username: this.state.value, value: ''});
-    }
-
-    openChat = () => {
-        if (this.state.username.length >=1) {
-            return <Chat username={this.state.username}/>
-        }
-        return null;
-    }
-
     render() {
+        let name = this.state.value;
+
         return (
-            <form onSubmit={this.rensaInput.bind(this)}>
-                <input type="text" value={this.state.value} onChange={this.setName.bind(this)}/>
-                <button onClick={this.getUsername.bind(this)}>Submit</button>
-                {this.openChat()}
+            <form>
+                <h1>Log In</h1>
+                <div><input type="text" value={this.state.value} onChange={this.setName.bind(this)}></input></div>
+                <Link onClick={event => !this.state.value ? event.preventDefault() : null} to={"/chat/" + name}>
+                    <button type="submit">Log In</button>
+                </Link>
             </form>
         )
     }

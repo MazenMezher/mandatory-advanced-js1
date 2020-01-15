@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import io from 'socket.io-client'
+import UpdatedMessages from './UpdatedMessages';
 
 
 class Chat extends Component {
@@ -9,74 +10,65 @@ class Chat extends Component {
         this.state = {
             username: props.username,
             messages: [],
-            
+            convertUrl: []
         }
     }
-
-    
 
     componentDidMount() {
         const socket = io('http://3.120.96.16:3000');
+
         socket.on('messages', (data) => {
-            
-        this.setState({
-            messages: data
+
+            this.setState({
+                messages: data
+            })
         })
-    })
     }
 
-    
 
-
-    // componentDidUpdate() {
-    //     const socket = io('http://3.120.96.16:3000/%27);
-    //     socket.on('new_message', (data) => {
-
-    //     this.setState({
-    //         updatedMessages: data
+    //     this.state.messages.map(msg => {
+    //         // let word = msg.content.split(" ");
+    //         return console.log('hej');
+    //         // if (/^https?/ig.test(word)) {
+    //         //         return <a href={word}>{word}</a>
+    //         //     }
+    //         //     return <> {word} </>;
     //     })
-    // })
+
+    //     console.log('object');
     // }
 
-    clg = () => {
-        
-    }
+
 
     render() {
-        let messages = this.state.messages.map(message => {
+        const { username, messages } = this.state;
+
+        // let url = messages.map(msg => {
+        //     let word = msg.content.split(" ");
+        //     if (/^https?/ig.test(word)) {
+        //             return <a href={word}>{word}</a>
+        //         }
+        //         return <> {word} </>;
+        // })
+
+        let msg = messages.map(message => {
+
             return <p key={message.id}>{message.username}: {message.content}</p>;
-            
-        });
-
-        let updatedMsg = () => {
-            const socket = io('http://3.120.96.16:3000');
-
-
-            
-            socket.on("new_message", data => {
-                
-                let x = Object.values(data);
-                
-                    x.map(newData => {
-                        console.log(newData)
-                        return <p key={newData.id}>{newData.username}: {newData.content}</p>;
-                    })
-
-            })
-        }
+            // return <p key={message.id}>{message.username}: {replace_content(message.content)}</p>;
+        })
 
         return (
-            <div className="chat">
-                {messages}
+            <div>
+                {/* {x} /}
                 
-                {updatedMsg()}
-
-                {/* <h1>new messages</h1>
-                {updatedMessages} */}
+                {/ {replace_content()} */}
+                {msg}
+                <UpdatedMessages username={username}/>
             </div>
         )
     }
 }
+
 
 export default Chat
 
