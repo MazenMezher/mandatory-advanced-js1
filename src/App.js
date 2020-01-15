@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Route} from "react-router-dom"
-
+import Emoji from "react-emoji-render"
 import './App.css';
 import Links from "./Component/Links";
 import LogIn from './Component/LogIn';

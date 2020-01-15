@@ -1,5 +1,8 @@
 import React, { Component } from 'react'
 import io from 'socket.io-client'
+import {emojify} from "react-emojione"
+import Linkify from "react-linkify"
+import {Link} from "react-router-dom"
 
 class UpdatedMessages extends Component {
     constructor(props) {
@@ -46,10 +49,13 @@ class UpdatedMessages extends Component {
         return (
             <form onSubmit={this.sendMessage.bind(this)}>
                 {newMessages.map(data => {
-                    return <p key={data.id}>{data.username}: {data.content}</p>
+                    return <p key={data.id}>{data.username}: <Linkify>{emojify(data.content)} </Linkify></p>
                 })}
                 <input type="text" value={this.state.value} onChange={this.newValue.bind(this)}></input>
                 <button type="submit">Send</button>
+                <Link to="/">
+                    <button>Return to login</button>
+                </Link>
             </form>
         )
     }
