@@ -13,12 +13,12 @@ class Chat extends Component {
             messages: [],
             convertUrl: []
         }
+        this.socket = io('http://3.120.96.16:3000');
     }
 
     componentDidMount() {
-        const socket = io('http://3.120.96.16:3000');
 
-        socket.on('messages', (data) => {
+        this.socket.on('messages', (data) => {
 
             this.setState({
                 messages: data
@@ -26,7 +26,9 @@ class Chat extends Component {
         })
     }
 
-
+    componentWillUnmount() {
+        this.socket.off();
+    }
     //     this.state.messages.map(msg => {
     //         // let word = msg.content.split(" ");
     //         return console.log('hej');
@@ -64,7 +66,7 @@ class Chat extends Component {
                 
                 {/ {replace_content()} */}
                 {msg}
-                <UpdatedMessages username={username}/>
+                <UpdatedMessages socket={this.socket} username={username}/>
             </div>
         )
     }

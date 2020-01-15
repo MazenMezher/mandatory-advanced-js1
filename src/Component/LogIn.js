@@ -9,7 +9,8 @@ class LogIn extends Component {
 
         this.state = {
             username: '',
-            value: ''
+            value: '',
+            
         }
     }
 
@@ -25,8 +26,13 @@ class LogIn extends Component {
         return (
             <form>
                 <h1>Log In</h1>
-                <div><input type="text" value={this.state.value} onChange={this.setName.bind(this)}></input></div>
-                <Link onClick={event => !this.state.value ? event.preventDefault() : null} to={"/chat/" + name}>
+                <div><input placeholder="Username" type="text" value={this.state.value} onChange={this.setName.bind(this)}></input></div>
+                <Link onClick={event => {
+                    let valid = /^[a-z/d_-]{1,12}$/i.test(this.state.value);
+                    if(!valid){
+                        event.preventDefault();
+                    }
+                }} to={"/chat/" + name}>
                     <button type="submit">Log In</button>
                 </Link>
             </form>

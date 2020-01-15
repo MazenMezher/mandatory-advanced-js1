@@ -24,14 +24,17 @@ class UpdatedMessages extends Component {
     }
 
     componentDidMount() {
-        const socket = io('http://3.120.96.16:3000')
-        socket.on('new_message', (data) => {
+        
+        this.props.socket.on('new_message', (data) => {
             let messages = this.state.newMessages;
             messages.push(data);
             this.setState({newMessages: messages});
         })
     }
 
+    componentWillUnmount() {
+        this.props.socket.off("new_message");
+    }
     sendMessage = (e) => {
         e.preventDefault()
         this.setState({clearValue: this.state.value, value: ""})
@@ -51,7 +54,7 @@ class UpdatedMessages extends Component {
                 {newMessages.map(data => {
                     return <p key={data.id}>{data.username}: <Linkify>{emojify(data.content)} </Linkify></p>
                 })}
-                <input type="text" value={this.state.value} onChange={this.newValue.bind(this)}></input>
+                <input placeholder="Message" type="text" value={this.state.value} onChange={this.newValue.bind(this)}></input>
                 <button type="submit">Send</button>
                 <Link to="/">
                     <button>Return to login</button>
